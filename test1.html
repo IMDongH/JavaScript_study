@@ -1,0 +1,22 @@
+<html>
+    <title>
+        <meta charset="utf-8">
+    </title>
+    <body><script>
+        function readTextFile() {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", "word.txt", true);
+            rawFile.onreadystatechange = function() {
+              if (rawFile.readyState === 4) {
+                var allText = rawFile.responseText;
+                document.getElementById("textSection").innerHTML = allText;
+              }
+            }
+            rawFile.send();
+          }
+  reader.readAsText(file);
+
+        </script>
+        
+    </body>
+</html>

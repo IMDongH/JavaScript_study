@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <input type="text" id="tbox" placeholder="검색어 입력">
+        <button id="search_b" onclick="search()">search</button>
+        <p id="demo">hi</p>
+       <script type = "text/javascript">
+           function button_click(x,y){
+           for(var i=1; i<=x; i++)
+           {
+               for(var j=1; j<=y; j++)
+               {
+                    document.writeln(i ,'*' ,j  ,'=', i*j );
+               }
+           }}
+           function search()
+           {
+               var tb = document.getElementById("tbox");
+               document.getElementById("demo").innerHTML=tb.value;
+           }
+           
+       </script>
+    </body>
+</html>

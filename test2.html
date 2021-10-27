@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Read Text File Tutorial</title>
+  </head>
+  <body>
+      
+    <input type="file" onchange="loadFile(this.files[0])">
+    <br>
+    <script>
+        var jbSplit =[];
+      async function loadFile(file) {
+        var text = await file.text();
+        for(var i=0; i<text.length; i++)
+        {
+            var j=0;
+            if(text[i]=='\n')
+            {
+                document.write("space"+'<br>');
+                document.write("test"+'<br>');
+                continue;
+                j++;
+                i++;
+            }
+            else{
+                if(text[i]==" "){
+                document.write(text[i] + "공백"+'<br>');}
+                else{
+                jbSplit[j]=text[i];
+                document.write(text[i]+"문자"+'<br>');
+            }
+        }
+        }
+        document.write(jbSplit.length);
+        document.write(jbSplit[0]);
+      }
+    </script>
+  </body>
+</html>
