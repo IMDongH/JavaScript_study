@@ -5,23 +5,82 @@
     </head>
     <body>
         <input type="text" id="tbox" placeholder="검색어 입력">
-        <button id="search_b" onclick="search()">search</button>
-        <p id="demo">hi</p>
-       <script type = "text/javascript">
-           function button_click(x,y){
-           for(var i=1; i<=x; i++)
+        <button id="search_b" onclick="runAlgorithm()">search</button>
+        <input type="file" onchange="loadFile(this.files[0])">
+        <script>
+            var textArr;
+            var searchS;
+            async function loadFile(file) {
+              var text = await file.text();
+              var textStr = text;
+              textArr = text.split('\n'); //개행문자를 기준으로 단어를 잘라서 단어 1개당 String형 배열에 저장
+                   
+            }
+            function editDistance(s,t)
            {
-               for(var j=1; j<=y; j++)
-               {
-                    document.writeln(i ,'*' ,j  ,'=', i*j );
-               }
-           }}
-           function search()
-           {
-               var tb = document.getElementById("tbox");
-               document.getElementById("demo").innerHTML=tb.value;
+                var m = s.length-1;
+                var n = t.length;
+                var d = new Array(m+1);
+                for(var i=0; i<d.length; i++)
+                {
+                    d[i]=new Array(n+1);
+                }
+                d[0][0]=0;
+                for(var i=1; i<m; i++)
+                {
+                    d[i][0]=i;
+                }
+                for( var j =1; j<n; j++)
+                {
+                    d[0][j]=j;
+                }
+
+                for(var j=1; j<=n; j++)
+                {
+                    for(var i=1; i<=m; i++)
+                    {
+                        if(s[i]==t[j])
+                        {
+                            d[i][j]=d[i-1][j-1];
+                        }
+                        else
+                        {
+                            d[i][j]=getMin(d[i-1][j],d[i][j-1],d[i-1][j-1])+1;
+                        }
+                    }
+
+                }
+                
+                return d[m-1][n-1];
            }
-           
-       </script>
+            function getMin(n1,n2,n3)
+            {
+                var minN=n1;
+                if(minN>n2)
+                minN=n2;
+                if(minN>n3)
+                minN=n3;
+
+                return minN;
+            }
+            
+            function runAlgorithm()
+            {
+                searchS = document.getElementById("tbox").value;
+                console.log("Didn't you enter this?");
+                for(var i=0; i<textArr.length-1; i++)
+                {
+                    var strA = textArr[i]; //text 파일에서 가져온 string
+                    var strB = searchS; //search하려는 string
+
+                    var result = editDistance(strA,strB);
+                   
+                    if(result == 1)
+                    {
+                        console.log(textArr[i]);
+                    }
+                }
+            }
+          </script>
     </body>
 </html>
