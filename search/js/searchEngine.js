@@ -31,7 +31,7 @@
 			
 			document.querySelector('#itemList').innerHTML = list;  //itemList라는 div에 list(ul li 로 이루어진 list)
 			var click = document.querySelectorAll('.source'); 
-            x`
+            
             for(var i = 0; i < click.length; i++) {  
 				click[i].addEventListener("click", showBookInfo);  
 			}
@@ -43,43 +43,44 @@
         }
 		
 		
-		function editDistance(s,t)
-           {
-                var m = s.length-1;
-                var n = t.length;
-                var d = new Array(m+1);
-                for(var i=0; i<d.length; i++)
-                {
-                    d[i]=new Array(n+1);
-                }
-                d[0][0]=0;
-                for(var i=1; i<m; i++)
-                {
-                    d[i][0]=i;
-                }
-                for( var j =1; j<n; j++)
-                {
-                    d[0][j]=j;
-                }
+        function editDistance(s,t)
+        {
+             var m = s.length-1;
 
-                for(var j=1; j<=n; j++)
-                {
-                    for(var i=1; i<=m; i++)
-                    {
-                        if(s[i]==t[j])
-                        {
-                            d[i][j]=d[i-1][j-1];
-                        }
-                        else
-                        {
-                            d[i][j]=getMin(d[i-1][j],d[i][j-1],d[i-1][j-1])+1;
-                        }
-                    }
+             var n = t.length;
+             var d = new Array(m+1);
+             for(var i=0; i<d.length; i++)
+             {
+                 d[i]=new Array(n+1);
+             }
+             d[0][0]=0;
+             for(var i=1; i<=m; i++)
+             {
+                 d[i][0]=i;
+             }
+             for( var j =1; j<=n; j++)
+             {
+                 d[0][j]=j;
+             }
 
-                }
-                
-                return d[m-1][n-1];
-           }
+             for(var i=0; i<=m; i++)
+             {
+                 for(var j=1; j<=n; j++)
+                 {
+                   d[i][j] =
+     i === 0
+       ? j
+       : Math.min(
+           d[i - 1][j] + 1,
+           d[i][j - 1] + 1,
+           d[i - 1][j - 1] + (t[j - 1] === s[i - 1] ? 0 : 1)
+         );
+                 }
+
+             }
+             
+             return d[m][n];
+        }
 		   function getMin(n1,n2,n3)
             {
                 var minN=n1;
@@ -101,7 +102,7 @@
                     var strB = inputString;
 
                     var result = editDistance(strA,strB);
-                   
+                    console.log(strA.length, strB.length,result);
                     if((result == 1) || (result == 0))
                     {
 						itemList.push(textArr[i]);  //itemList array에 textArr[i]값을 push

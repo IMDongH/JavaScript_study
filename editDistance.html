@@ -19,6 +19,7 @@
             function editDistance(s,t)
            {
                 var m = s.length-1;
+
                 var n = t.length;
                 var d = new Array(m+1);
                 for(var i=0; i<d.length; i++)
@@ -26,18 +27,18 @@
                     d[i]=new Array(n+1);
                 }
                 d[0][0]=0;
-                for(var i=1; i<m; i++)
+                for(var i=1; i<=m; i++)
                 {
                     d[i][0]=i;
                 }
-                for( var j =1; j<n; j++)
+                for( var j =1; j<=n; j++)
                 {
                     d[0][j]=j;
                 }
 
-                for(var j=1; j<=n; j++)
+                for(var i=1; i<=m; i++)
                 {
-                    for(var i=1; i<=m; i++)
+                    for(var j=1; j<=n; j++)
                     {
                         if(s[i]==t[j])
                         {
@@ -45,13 +46,13 @@
                         }
                         else
                         {
-                            d[i][j]=getMin(d[i-1][j],d[i][j-1],d[i-1][j-1])+1;
+                            d[i][j]=getMin(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+1);
                         }
                     }
 
                 }
                 
-                return d[m-1][n-1];
+                return d[m][n];
            }
             function getMin(n1,n2,n3)
             {
@@ -74,10 +75,10 @@
                     var strB = searchS; //search하려는 string
 
                     var result = editDistance(strA,strB);
-                   
-                    if(result == 1)
+                    
+                    if(result == 1 || result==0)
                     {
-                        console.log(textArr[i]);
+                        console.log(textArr[i].length,searchS.length,textArr[i],result);
                     }
                 }
             }
