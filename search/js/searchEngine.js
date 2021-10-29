@@ -25,23 +25,24 @@
 		function showList() {
 			var list = "<ul>"; 
 			for (var i=0; i<itemList.length; i++) {  
-				list += "<li>" + itemList[i] + "<span class='close' id=" + i + ">X</span></li>"; 
+				list += "<li  class = 'source' id = "+i+">" + itemList[i] +"</li>"; 
 			}
 			list += "</ul>";   
 			
-			document.querySelector('#itemList').innerHTML = list;  
-			
-			var remove = document.querySelectorAll(".close"); 
-			for(var i = 0; i < remove.length; i++) {  
-				remove[i].addEventListener("click", removeList);  
+			document.querySelector('#itemList').innerHTML = list;  //itemList라는 div에 list(ul li 로 이루어진 list)
+			var click = document.querySelectorAll('.source'); 
+            x`
+            for(var i = 0; i < click.length; i++) {  
+				click[i].addEventListener("click", showBookInfo);  
 			}
+			
 		}
+        function showBookInfo() // 해당 리스트 클릭했을때 띄울거 
+        {
+            alert(itemList[this.getAttribute("id")]);
+        }
 		
-		function removeList() {
-			var id = this.getAttribute("id"); 
-			itemList.splice(id, 1);  
-			showList(); 
-		}
+		
 		function editDistance(s,t)
            {
                 var m = s.length-1;
@@ -103,9 +104,9 @@
                    
                     if((result == 1) || (result == 0))
                     {
-						itemList.push(textArr[i]);  
-						document.querySelector("#item").value = ""; 
-						document.querySelector("#item").focus(); 
+						itemList.push(textArr[i]);  //itemList array에 textArr[i]값을 push
+						document.querySelector("#item").value = "";  // #item 즉 text창을 비운다
+						document.querySelector("#item").focus();  // 모르겠음
                         
                     }
                 }
