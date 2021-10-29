@@ -23,7 +23,7 @@
 		}
 		
 		function showList() {
-			var list = "<ul>"; 
+			var list =  "<ul>"; 
 			for (var i=0; i<itemList.length; i++) {  
 				list += "<li  class = 'source' id = "+i+">" + itemList[i] +"</li>"; 
 			}
